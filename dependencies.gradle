@@ -3,7 +3,7 @@
 // in all our modules.
 
 ext {
-    minSdk = 28
+    minSdk = 29
     compileSdk = 31
     targetSdk = 31
     targetSkysticksSDK = 32

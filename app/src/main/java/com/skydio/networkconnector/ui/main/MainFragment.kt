@@ -27,7 +27,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         connect.setOnClickListener {
-            viewModel.ssid = ssid.text.toString()
+            viewModel.ssid = ssid.text.toString().trim()
             viewModel.password = password.text.toString()
             viewModel.connect()
         }
