@@ -10,10 +10,7 @@ class ConnectToNetworkUseCase(
 
     constructor(context: Context) : this(context.getSystemService(ConnectivityManager::class.java))
 
-    operator fun invoke(
-        ssid: String,
-        password: String
-    ) {
+    operator fun invoke(ssid: String, password: String) {
         val requestCallback = RequestCallback()
 
         val networkSpecifier = WifiNetworkSpecifier.Builder()
