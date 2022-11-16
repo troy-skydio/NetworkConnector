@@ -1,0 +1,7 @@
+.gradle
+/local.properties
+**/*.iml
+.idea/
+/keys/release.keystore
+/keys/release_credentials.json
+/keys/firebase_credentials.json
