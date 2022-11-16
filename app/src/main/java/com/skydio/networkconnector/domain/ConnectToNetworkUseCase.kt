@@ -10,8 +10,12 @@ class ConnectToNetworkUseCase(
 
     constructor(context: Context) : this(context.getSystemService(ConnectivityManager::class.java))
 
-    operator fun invoke(ssid: String, password: String) {
-        val requestCallback = RequestCallback()
+    operator fun invoke(
+        ssid: String,
+        password: String,
+        onCallbackFunctionCalled: (String) -> Unit
+    ) {
+        val requestCallback = RequestCallback(onCallbackFunctionCalled)
 
         val networkSpecifier = WifiNetworkSpecifier.Builder()
             .setSsid(ssid)
@@ -28,10 +32,13 @@ class ConnectToNetworkUseCase(
         connectivityManager.requestNetwork(networkRequest, requestCallback, 10000)
     }
 
-    private inner class RequestCallback : ConnectivityManager.NetworkCallback() {
+    private inner class RequestCallback(
+        val onCallbackFunctionCalled: (String) -> Unit
+    ) : ConnectivityManager.NetworkCallback() {
 
         override fun onBlockedStatusChanged(network: Network, blocked: Boolean) {
             super.onBlockedStatusChanged(network, blocked)
+            onCallbackFunctionCalled("onBlockedStatusChanged(network: $network, blocked: $blocked)")
         }
 
         override fun onCapabilitiesChanged(
@@ -39,6 +46,7 @@ class ConnectToNetworkUseCase(
             networkCapabilities: NetworkCapabilities
         ) {
             super.onCapabilitiesChanged(network, networkCapabilities)
+            onCallbackFunctionCalled("onCapabilitiesChanged(network: $network, networkCapabilities: $networkCapabilities)")
         }
 
         override fun onLinkPropertiesChanged(
@@ -46,22 +54,27 @@ class ConnectToNetworkUseCase(
             linkProperties: LinkProperties
         ) {
             super.onLinkPropertiesChanged(network, linkProperties)
+            onCallbackFunctionCalled("onLinkPropertiesChanged(network: $network, linkProperties: $linkProperties)")
         }
 
         override fun onLost(network: Network) {
             super.onLost(network)
+            onCallbackFunctionCalled("onLost(network: $network)")
         }
 
         override fun onLosing(network: Network, maxMsToLive: Int) {
             super.onLosing(network, maxMsToLive)
+            onCallbackFunctionCalled("onLosing(network: $network, maxMsToLive: $maxMsToLive)")
         }
 
         override fun onAvailable(network: Network) {
             super.onAvailable(network)
+            onCallbackFunctionCalled("onAvailable(network: $network)")
         }
 
         override fun onUnavailable() {
             super.onUnavailable()
+            onCallbackFunctionCalled("onUnavailable()")
         }
     }
 

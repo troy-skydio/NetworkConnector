@@ -26,6 +26,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.requestCallbackStepsLiveData.observe(viewLifecycleOwner, callback_steps::setText)
         connect.setOnClickListener {
             viewModel.ssid = ssid.text.toString().trim()
             viewModel.password = password.text.toString()
