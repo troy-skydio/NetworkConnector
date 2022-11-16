@@ -3,14 +3,19 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+apply from: '../dependencies.gradle'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
 android {
     namespace 'com.skydio.networkconnector'
-    compileSdk 32
+    compileSdkVersion project.ext.compileSdk
+    buildToolsVersion project.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "com.skydio.networkconnector"
-        minSdk 21
-        targetSdk 32
+        minSdkVersion project.ext.minSdk
+        targetSdkVersion project.ext.targetSdk
         versionCode 1
         versionName "1.0"
 

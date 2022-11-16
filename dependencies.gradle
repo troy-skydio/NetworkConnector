@@ -1,0 +1,12 @@
+// This file contains all the dependencies
+// This will ensure all the dependencies we use in our project are the known versions and the same
+// in all our modules.
+
+ext {
+    minSdk = 28
+    compileSdk = 31
+    targetSdk = 31
+    targetSkysticksSDK = 32
+    buildToolsVersion = '30.0.3'
+}
+
